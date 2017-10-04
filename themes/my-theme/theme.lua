@@ -16,24 +16,34 @@ local function transparent(color)
   return "#" .. c
 end
 
-theme.font          = "hack-2.0 8"
+theme.font           = "hack-2.0 8"
 
-theme.bg_normal     = transparent("222200")
---theme.bg_normal     = transparent("222222")
-theme.bg_focus      = transparent("535d6c")
-theme.bg_urgent     = transparent("ff0000")
-theme.bg_minimize   = transparent("444444")
-theme.bg_systray    = theme.bg_normal
+dark_yellow          =  transparent("222200")
+slightly_yellow      =  transparent("303000")
+medium_yellow        =  transparent("505000")
+bright_yellow        =  transparent("b0b000")
+dark_gray            =  transparent("222222")
+medium_gray          =  transparent("535d6c")
+bright_gray          =  transparent("aaaaaa")
+orange               =  transparent("ff8000")
+dark_red             =  transparent("91231c")
+bright_red           =  transparent("ff0000")
+black                =  transparent("000000")
+white                =  transparent("ffffff")
 
-theme.fg_normal     = transparent("aaaaaa")
-theme.fg_focus      = transparent("ffffff")
-theme.fg_urgent     = transparent("ffffff")
-theme.fg_minimize   = transparent("ffffff")
-
-theme.border_width  = 1
-theme.border_normal = transparent("000000")
-theme.border_focus  = transparent("535d6c")
-theme.border_marked = transparent("91231c")
+theme.bg_normal      =  dark_yellow
+theme.bg_focus       =  medium_yellow
+theme.bg_urgent      =  orange
+theme.bg_minimize    =  slightly_yellow
+theme.bg_systray     =  dark_yellow
+theme.fg_normal      =  bright_gray
+theme.fg_focus       =  white
+theme.fg_urgent      =  white
+theme.fg_minimize    =  white
+theme.border_normal  =  black
+theme.border_focus   =  medium_yellow
+theme.border_marked  =  dark_red
+theme.border_width   =  1
 
 -- There are other variable sets
 -- overriding the default one when
