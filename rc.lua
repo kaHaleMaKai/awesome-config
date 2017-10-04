@@ -14,6 +14,7 @@ local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
 --require("awful.hotkeys_popup.keys.vim")
 local volume_control = require("modules/volume-control")
+local revelation=require("revelation")
 
 
 -- {{{ Error handling
@@ -46,6 +47,7 @@ end
 config_path = awful.util.getdir("config")
 theme_path = config_path .. "/themes/my-theme"
 beautiful.init(theme_path .. "/theme.lua")
+revelation.init()
 
 -- This is used later as the default terminal and editor to run.
 terminal = "xfce4-terminal"
@@ -312,6 +314,13 @@ globalkeys = awful.util.table.join(
     ),
     awful.key({ modkey,           }, "w", function () mymainmenu:show() end,
               {description = "show main menu", group = "awesome"}),
+    awful.key({ modkey,           }, "e",      revelation),
+    awful.key({ modkey, "Shift"}, "e", function()
+        revelation({rule={class="Xfce4-terminal"}, is_excluded=true})
+    end),
+    awful.key({ modkey, "Control"}, "e", function()
+        revelation({rule={class="Xfce4-terminal"}})
+    end),
 
     -- Layout manipulation
     awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end,
