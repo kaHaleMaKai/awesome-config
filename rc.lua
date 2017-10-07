@@ -740,18 +740,6 @@ client.connect_signal("focus", function(c) c.border_color = beautiful.border_foc
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
 
--- -- Initialize widget
--- cpuwidget = awful.widget.graph()
--- -- Graph properties
--- cpuwidget:set_width(50)
--- cpuwidget:set_background_color("#494B4F")
--- cpuwidget:set_color({ type = "linear", from = { 0, 0 }, to = { 10,0 }, stops = { {0, "#FF5656"}, {0.5, "#88A175"},
---                     {1, "#AECF96" }}})
--- -- Register widget
--- vicious.register(cpuwidget, vicious.widgets.cpu, "$1")
---
--- -- crude hack, use run-once
---
 -- autostarts
 local autostart = {
     "setxkbmap de deadacute",
