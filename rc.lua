@@ -338,18 +338,18 @@ globalkeys = awful.util.table.join(
                 "Control" },
               "l",
               function ()
-                awful.util.spawn("xflock4")
+                awful.spawn.with_shell("xflock4")
               end),
     awful.key({ modkey,
                 "Shift" },
               "s",
               function ()
-                awful.util.spawn("shutter")
+                awful.spawn.with_shell("shutter")
               end),
     --awful.key({ },
               --"XF86AudioMute",
               --function ()
-                --awful.util.spawn("pactl set-sink-mute 0 toggle")
+                --awful.spawn.with_shell("pactl set-sink-mute 0 toggle")
               --end),
     awful.key({ modkey,           }, "Tab",
         function ()
@@ -420,56 +420,56 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey }, "b", hide_wibar, {description = "toggle statusbar"}),
 
     awful.key({ modkey, "Shift"}, "Left", function (c)
-        awful.util.spawn("shiftred r+")
+        awful.spawn.with_shell("shiftred r+")
     end),
     awful.key({ modkey, "Shift" }, "Right", function (c)
-        awful.util.spawn("shiftred r-")
+        awful.spawn.with_shell("shiftred r-")
     end),
 
     awful.key({ modkey, "Shift" }, "Up", function (c)
-        awful.util.spawn("shiftred b+")
+        awful.spawn.with_shell("shiftred b+")
     end),
     awful.key({ modkey, "Shift" }, "Down", function (c)
-        awful.util.spawn("shiftred b-")
+        awful.spawn.with_shell("shiftred b-")
     end),
 
     awful.key({ modkey, "Shift" }, "0", function (c)
-        awful.util.spawn("shiftred 3400:.8")
+        awful.spawn.with_shell("shiftred 3400:.8")
     end),
 
     awful.key({ modkey }, "0", function (c)
-        awful.util.spawn("shiftred 3800:1")
+        awful.spawn.with_shell("shiftred 3800:1")
     end),
 
     awful.key({ modkey, "Control" }, "0", function (c)
-        awful.util.spawn("shiftred 6500:1")
+        awful.spawn.with_shell("shiftred 6500:1")
     end),
 
     awful.key({ modkey }, "F1", function (c)
-        awful.util.spawn("set-screen-layout small")
+        awful.spawn.with_shell("set-screen-layout small")
         awesome.restart()
     end),
 
     awful.key({ modkey }, "F2", function (c)
-        awful.util.spawn("set-screen-layout dual")
+        awful.spawn.with_shell("set-screen-layout dual")
         awesome.restart()
         awful.screen.focus(1)
-        awful.tag.incmwfact( 0.05 * 6)
+        awful.tag.incmwfact(0.05 * 6)
     end),
 
     awful.key({ modkey }, "F3", function (c)
-        awful.util.spawn("set-screen-layout large")
+        awful.spawn.with_shell("set-screen-layout large")
         awesome.restart()
     end),
 
     awful.key({ modkey }, "Next", function (c)
-        awful.util.spawn("transset --actual --inc 0.025")
+        awful.spawn.with_shell("transset --actual --inc 0.025")
     end),
     awful.key({ modkey }, "Prior", function (c)
-        awful.util.spawn("transset --actual --dec 0.025")
+        awful.spawn.with_shell("transset --actual --dec 0.025")
     end),
     awful.key({ modkey }, "F10", function (c)
-        awful.util.spawn("rofi-pass")
+        awful.spawn.with_shell("rofi-pass")
     end),
     --
     -- Menubar

@@ -36,7 +36,8 @@ local function run(promptbox)
 end
 
 local function spawn_and_handle_error(self, ...)
-    local result = spawn(...)
+    util.shell = "zsh"
+    local result = spawn.with_shell(...)
     if type(result) == "string" then
         self.widget:set_text(result)
     end
