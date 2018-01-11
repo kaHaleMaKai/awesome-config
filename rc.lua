@@ -145,7 +145,7 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 -- }}}
 
 -- Keyboard map indicator and switcher
-mykeyboardlayout = awful.widget.keyboardlayout()
+--mykeyboardlayout = awful.widget.keyboardlayout()
 
 -- {{{ Wibar
 -- Create a textclock widget
@@ -215,10 +215,7 @@ local tagtables = {
     { tags = { "10" },
       layouts = { awful.layout.suit.max.fullscreen } },
 }
-local last_tag = {
-    tag = 1,
-    screen = 1
-}
+local last_tag = 1
 awful.screen.connect_for_each_screen(function(s)
     local screen_index = s.index
     local tag_index
@@ -295,7 +292,10 @@ globalkeys = awful.util.table.join(
               {description="show help", group="awesome"}),
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
               {description = "view previous", group = "tag"}),
-    awful.key({ modkey,           }, "Right",  awful.tag.viewnext,
+    awful.key({ modkey,           }, "Right",  function (screen)
+        last_tag = awful.screen.focused().selected_tag
+        return awful.tag.viewnext(screen)
+    end,
               {description = "view next", group = "tag"}),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore,
               {description = "go back", group = "tag"}),
@@ -321,11 +321,21 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control"}, "e", function()
         revelation({rule={class="Xfce4-terminal"}})
     end),
+    awful.key({ modkey, "Shift"   }, "p",
+        function ()
+            -- awful.client.focus.history.previous()
+            local tmp = last_tag
+            last_tag = awful.screen.focused().selected_tag
+            awful.client.focus.byidx(tmp)
+            last_tag = tmp
+        end,
+        {description = "focus next by index", group = "client"}
+    ),
 
     -- Layout manipulation
-    awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end,
+    awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(-1)    end,
               {description = "swap with next client by index", group = "client"}),
-    awful.key({ modkey, "Shift"   }, "k", function () awful.client.swap.byidx( -1)    end,
+    awful.key({ modkey, "Shift"   }, "k", function () awful.client.swap.byidx(1)    end,
               {description = "swap with previous client by index", group = "client"}),
     awful.key({ modkey, "Control"}, "Right", function () awful.screen.focus(screen.count()) end,
               {description = "focus the next screen", group = "screen"}),
@@ -345,6 +355,11 @@ globalkeys = awful.util.table.join(
               "s",
               function ()
                 awful.spawn.with_shell("shutter")
+              end),
+    awful.key({ modkey },
+              "F6",
+              function ()
+                awful.spawn.with_shell("amixer sset Master on")
               end),
     --awful.key({ },
               --"XF86AudioMute",
@@ -537,11 +552,11 @@ for i = 1, 9 do
         awful.key({ modkey }, "#" .. i + 9,
                   function ()
                         local screen = awful.screen.focused()
+                        last_tag = screen.selected_tag
                         local tag = screen.tags[i]
                         if tag then
                            tag:view_only()
                         end
-                        last_tag.screen = screen
                   end,
                   {description = "view tag #"..i, group = "tag"}),
         -- Toggle tag display.
@@ -647,10 +662,11 @@ awful.rules.rules = {
             "jetbrains-idea-ce",
             "jetbrains-pycharm-ce",
             "Spotify",
+            "Code",
         },
     }, properties = { opacity = 0.97 } },
 
-    { rule = { class = "Zim" },
+    { rule_any = { class = { "Zim", "Spotify" } },
       properties = { screen = screen.count(), tag = zim_tag, opacity = 0.95 } },
     { rule = { class = "Evolution" },
       properties = { tag = "1", screen = 1, opacity = 0.93 } },
@@ -663,7 +679,7 @@ awful.rules.rules = {
     { rule = { name = "Session manager", class = "Wine" },
       properties = { x = 90, y = 90, screen = 1, tag = "9", maximized_horizontally = false, maximized_vertically = false, fullscreen = true, size_hints_honor = true } },
     { rule = { name = "%a*Heidi%a*", class = "Wine" },
-      properties = { screen = 1, tag = "9", maximized_horizontally = true, maximized_vertically = true, opacity = 0.92 } },
+      properties = { screen = 1, tag = "9", maximized_horizontally = true, maximized_vertically = true, opacity = 0.95 } },
 
     -- Set Firefox to always map on the tag named "2" on screen 1.
     -- { rule = { class = "Firefox" },
